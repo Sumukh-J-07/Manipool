@@ -147,3 +147,25 @@ vite.config.ts.timestamp-*
 
 # Turbo Repo
 .turbo
+
+# Native Android / Apple local tools and generated builds
+android/.gradle/
+android/.kotlin/
+android/**/build/
+android/.cxx/
+android/**/.cxx/
+android/local.properties
+*.keystore
+*.jks
+*.apk
+*.aab
+ios/Pods/
+ios/build/
+ios/*.xcworkspace/
+*.xcuserstate
+xcuserdata/
+.bundle/
+vendor/bundle/
+*.hprof
+*.jsbundle
+/build/
