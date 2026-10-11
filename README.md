@@ -26,7 +26,7 @@ The project pins React Native **0.87.1**, React **19.2.3**, and uses npm with a 
 
 Install Android Studio and these SDK Manager components:
 
-- Android SDK Platform **37** (`platforms;android-37`).
+- Android SDK Platform **37.0** (`platforms;android-37.0`).
 - Android SDK Build-Tools **37.0.0**.
 - Android SDK Platform-Tools and Android Emulator.
 - NDK **27.1.12297006**, CMake **3.22.1**.
