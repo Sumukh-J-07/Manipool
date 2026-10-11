@@ -19,9 +19,19 @@ The interaction test renders the actual app/navigation with mocked native compon
 
 Metro reports a feature-flags subpath export fallback from the installed upstream React Native dependency graph; it still successfully generates the bundle. No warning suppression or vendor patch was introduced.
 
-Native builds were attempted with Android Studio's JDK 25 and a downloaded Microsoft JDK 17, Gradle 9.4.1, and the installed Android SDK path. Both failed at local loopback initialisation. This is an execution-environment limitation, not evidence that the application's native build passes. The GitHub Actions Android job is a further verification route; its outcome is separate from these local results.
+Native builds were attempted with Android Studio's JDK 25 and a downloaded Microsoft JDK 17, Gradle 9.4.1, and the installed Android SDK path. Both failed at local loopback initialisation. Native compilation was subsequently verified independently on GitHub Actions as recorded below.
 
 Remote quality checks (npm ci, TypeScript, lint, all 17 tests and Metro) also passed on the implementation commit. The initial Android CI job lacked SDK tools in PATH; SDK setup was added. The older setup action then requested Google's removed `tools` package. CI was updated to the maintained SDK action, explicit `platform-tools`, and the platform identifier `platforms;android-37.0`, verified against Google's SDK repository metadata.
+
+## Observed GitHub Actions results
+
+[Run 38145193383](https://github.com/vermakkrish/ManiPool/actions/runs/38145193383) completed successfully on commit `c30172beccad8ef8233a5678bc40f784f195cee8` on 11 October 2026:
+
+- Quality job: clean `npm ci`, TypeScript, zero-warning lint, 17 Jest tests and Android Metro bundle all passed.
+- Android job: JDK 17, SDK 37.0, Build-Tools 37.0.0, NDK 27.1.12297006 and CMake 3.22.1; `./gradlew assembleDebug --no-daemon --max-workers=2 -PreactNativeArchitectures=x86_64` passed.
+- Artifact `mahe-carpool-debug-x86_64` uploaded successfully (artifact ID `11704776584`). It contains a development debug APK for an x86_64 emulator, requires Metro, and is not a standalone release or an ARM phone build. Download it from the run's Artifacts section while retained by GitHub.
+
+This verifies native compilation and APK generation. Installation, launch and the device walkthrough below remain unverified; successful compilation does not establish those results.
 
 Non-breaking npm audit fixes were attempted. The final local install reports 53 inherited dependency advisories (48 high, 5 moderate), primarily propagated `braces` / `sprintf-js` findings in the Metro/Jest/framework tree. Forced audit fixes propose incompatible changes and were not applied. Review upstream patches before production use.
 

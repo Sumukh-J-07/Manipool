@@ -94,7 +94,7 @@ The bundle command emits ignored artifacts under `build/bundle/`; it verifies Me
 
 Tests cover invalid calendar/time/location inputs, past requests, windows across midnight, matching filters/capacity/determinism, illustrative weights, exact fare remainders, valid/invalid transitions, acceptance, booking, completion, no-match recovery, expiry, chat/pickup/departure consistency, local reports, and retained groups after cancellation. React render/interaction tests exercise the app with mocked native components. These are not emulator tests.
 
-GitHub Actions runs TypeScript, zero-warning lint, Jest and Metro checks. A separate job attempts an Android x86_64 debug build and uploads its APK for emulator use. CI results must be observed before claiming a successful native build.
+GitHub Actions runs TypeScript, zero-warning lint, Jest and Metro checks. A separate job builds an Android x86_64 debug APK and uploads it for emulator use. [Run 38145193383](https://github.com/vermakkrish/ManiPool/actions/runs/38145193383) passed both jobs, including native `assembleDebug`. Its `mahe-carpool-debug-x86_64` artifact requires an x86_64 emulator and Metro; it is not a standalone release or an ARM phone build. See [the verification record](docs/VERIFICATION.md) for observed results and remaining device checks.
 
 ## Implementation and future integration
 
@@ -124,7 +124,7 @@ Replace `demoMatchingService` with a FastAPI/geospatial adapter implementing `Ma
 - **Wrong Java/SDK:** point Android Studio's Gradle JDK and terminal `JAVA_HOME` at JDK 17. Install the exact SDK/NDK/CMake versions above; do not commit SDK paths.
 - **Metro/device connection:** check `adb devices`, start Metro from this directory, and reverse port 8081 for USB devices. If a cache is stale, use `npm start -- --reset-cache`.
 - **Long Windows native paths:** use a short clone path if CMake or Windows path-length limits interrupt compilation.
-- **Local build restriction observed during implementation:** Gradle failed before project compilation with `java.io.IOException: Unable to establish loopback connection`, including an attempt with JDK 17. ADB also could not initialise its local Android preferences path in this execution environment. No native APK success, emulator walkthrough or Android screenshots are claimed from those attempts. Run the build on a normal developer machine or inspect the Android CI job.
+- **Local build restriction observed during implementation:** Gradle failed before project compilation with `java.io.IOException: Unable to establish loopback connection`, including an attempt with JDK 17. ADB also could not initialise its local Android preferences path in this execution environment. Native APK generation subsequently passed on GitHub Actions. Local installation, emulator walkthrough and Android screenshots remain unverified. Use the run instructions on a normal developer machine for those checks.
 - **Dependency audit:** non-breaking `npm audit fix` was applied. Upstream transitive `braces`/`sprintf-js` advisories remain in the React Native/Metro/Jest dependency graph. Do not apply `npm audit fix --force`, which proposes incompatible framework changes. Inspect `npm audit` and upstream patched versions before production use. This prototype does not accept user-supplied glob patterns or precision format strings.
 - **Device layout:** safe areas, scrolling, keyboard resize, accessible text labels and controls of at least 48 dp are implemented. Native small-device layout, TalkBack and OS recreation still need an emulator/device walkthrough.
 
