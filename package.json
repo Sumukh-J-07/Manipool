@@ -9,7 +9,9 @@
     "start": "react-native start",
     "test": "jest",
     "typecheck": "tsc --noEmit",
-    "bundle:android": "node scripts/bundle-android.cjs"
+    "bundle:android": "node scripts/bundle-android.cjs",
+    "backend:start": "python3 backend/scripts/run_server.py",
+    "backend:test": "backend/scripts/run_tests.sh"
   },
   "dependencies": {
     "@react-native-community/datetimepicker": "^9.2.1",

@@ -169,3 +169,16 @@ vendor/bundle/
 *.hprof
 *.jsbundle
 /build/
+
+# Python & Backend
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+backend/.venv/
+.venv/
+venv/
+ENV/
+*.db
+*.sqlite3
