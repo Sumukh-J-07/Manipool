@@ -101,5 +101,6 @@ export interface AppState {
   notifications: boolean;
   savedPlaces: string[];
   reports: DemoReport[];
+  token?: string;
   error?: string;
 }

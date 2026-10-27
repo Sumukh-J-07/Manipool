@@ -182,3 +182,7 @@ venv/
 ENV/
 *.db
 *.sqlite3
+.pytest_cache/
+backend/.pytest_cache/
+.idea/
+android/.idea/

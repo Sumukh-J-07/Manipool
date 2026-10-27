@@ -43,4 +43,4 @@ Non-breaking npm audit fixes were attempted. The final local install reports 53 
 - Normal, two-rider/auto, no-match/recovery, cancellation and reset flows.
 - Confirm no live services/permissions/charges and no secrets in native outputs.
 
-The implementation is a local-session prototype; production authentication, backend persistence, routing, realtime messaging, payments, provider integration and push delivery are deliberately outside scope.
+The baseline prototype has since been connected to the shared backend service, database migrations, persistent storage, and multi-user verification. See the updated [Verification Records, Bug Tracker & Readiness Report](VERIFICATION_RECORDS.md) for full test metrics, schema migrations, and acceptance results.

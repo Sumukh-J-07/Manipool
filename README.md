@@ -12,13 +12,16 @@ This public repository is a fresh implementation based on the supplied project r
 - Exactly three main tabs: Home, Rides, Profile.
 - Shared ride form with searchable sample locations, native Android date/time pickers, validation, and Exact/±15/±30/±45 minute flexibility.
 - Warm cream/burgundy theme, outline icons, route logo and animated schematic maps without API keys.
-- Deterministic matching, no-match/retry/recovery controls, review and explicit mutual acceptance simulation.
-- Group formation, common/sequential pickup selection, local chat, quick messages and departure coordination.
+- Shared Multi-User FastAPI Backend Service with async SQLAlchemy (SQLite / PostgreSQL) supporting live request matching, transactional locking, capacity protection, and WebSockets.
+- Relational database schema with repeatable Alembic migrations (`backend/scripts/migrate_db.py`), standard location seeds (`backend/scripts/seed_db.py`), and universal SQL export (`backend/scripts/schema.sql`).
+- Persistent client storage (`src/services/storage.ts`) ensuring profiles, active carpool journeys, saved places, and history survive complete app termination and restarts.
+- Data privacy & retention policy: student right-to-erasure (`DELETE /api/auth/me`), automated cleanup runner (`backend/scripts/cleanup_retention.py`), and privacy access rules.
+- Group formation, common/sequential pickup selection, shared chat, quick messages and departure coordination.
 - Cab/auto capacity checks, exact fare splits, simulated booking confirmation, active ride and completion.
-- Ride history, saved places, local notification preference, local issue reports, confirmed departure/cancellation and reset.
+- Ride history, saved places, local notification preference, issue reports, confirmed departure/cancellation and reset.
 - Central state guards against invalid transitions, duplicate active requests, duplicate groups/messages and destructive group cancellation.
 
-**Demo boundary:** no real identity verification, GPS, geocoding, live riders, realtime messaging, driver tracking, provider booking, payment or push delivery. Sample prices/distances/detours are illustrative estimates. Reports are not sent to staff. State survives screen navigation but is in memory; a process restart clears it. Internet access is needed to install/build and for the development server, not for demo business services.
+See the comprehensive [Verification Records, Bug Tracker & Readiness Report](docs/VERIFICATION_RECORDS.md), [Backend API Documentation](docs/BACKEND_API.md), and [Final Acceptance Demonstration Record](docs/ACCEPTANCE_DEMO_RECORD.md).
 
 ## Prerequisites
 

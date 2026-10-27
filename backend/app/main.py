@@ -15,6 +15,7 @@ from backend.app.routers import (
     notifications,
     reports,
     requests,
+    retention,
 )
 
 # Configure logging
@@ -74,6 +75,7 @@ app.include_router(groups.router, prefix=settings.API_V1_PREFIX)
 app.include_router(chat.router, prefix=settings.API_V1_PREFIX)
 app.include_router(notifications.router, prefix=settings.API_V1_PREFIX)
 app.include_router(reports.router, prefix=settings.API_V1_PREFIX)
+app.include_router(retention.router, prefix=settings.API_V1_PREFIX)
 
 
 @app.get("/")

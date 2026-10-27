@@ -215,3 +215,18 @@ async def update_profile(
     await db.commit()
     await db.refresh(user)
     return UserProfile.model_validate(user)
+
+
+@router.delete("/me")
+async def delete_my_account(
+    user: User = Depends(get_current_user),
+    db: AsyncSession = Depends(get_db),
+):
+    """Student data deletion & GDPR/privacy right-to-erasure endpoint."""
+    user_id = user.id
+    await db.delete(user)
+    await db.commit()
+    return {
+        "message": "User account and private personal data deleted successfully.",
+        "user_id": user_id,
+    }

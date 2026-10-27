@@ -65,6 +65,7 @@ export type Action =
   | { type: 'SAVE'; locationId: string }
   | { type: 'REPORT'; text: string; rideId?: string; id: string; now: string }
   | { type: 'CLEAR_ERROR' }
+  | { type: 'HYDRATE'; payload: Partial<AppState> }
   | { type: 'RESET' };
 
 function event(text: string, now: string, id: string): ChatMessage {
@@ -81,6 +82,21 @@ export function appReducer(state: AppState, action: Action): AppState {
   const reject = (error: string) => ({ ...state, error });
   if (action.type === 'CLEAR_ERROR') {
     return { ...state, error: undefined };
+  }
+  if (action.type === 'HYDRATE') {
+    return {
+      ...state,
+      ...action.payload,
+      profile: action.payload.profile || state.profile,
+      draft: action.payload.draft || state.draft,
+      savedPlaces: action.payload.savedPlaces || state.savedPlaces,
+      rides: action.payload.rides || state.rides,
+      groups: action.payload.groups || state.groups,
+      reports: action.payload.reports || state.reports,
+      signedIn: action.payload.signedIn ?? state.signedIn,
+      notifications: action.payload.notifications ?? state.notifications,
+      token: action.payload.token ?? state.token,
+    };
   }
   if (action.type === 'RESET') {
     return {

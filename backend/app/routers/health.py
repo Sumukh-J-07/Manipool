@@ -31,13 +31,38 @@ async def readiness_probe():
     return {"status": "ready"}
 
 
+from backend.app.models.location import Location
+from sqlalchemy import select
+
+
 @router.get("/locations")
-async def get_locations():
+async def get_locations(db: AsyncSession = Depends(get_db)):
+    try:
+        stmt = select(Location).where(Location.is_active == True)
+        res = await db.execute(stmt)
+        db_locations = res.scalars().all()
+        if db_locations:
+            return [
+                {
+                    "id": loc.id,
+                    "name": loc.name,
+                    "area": loc.area,
+                    "kind": loc.kind,
+                    "corridor": loc.corridor,
+                    "lat": loc.latitude,
+                    "lng": loc.longitude,
+                }
+                for loc in db_locations
+            ]
+    except Exception:
+        pass
+
     return [
         {
             "id": loc_id,
             "name": data["name"],
             "area": data["area"],
+            "kind": "transit" if "transit" in loc_id or "station" in data["name"].lower() else "campus",
             "corridor": data["corridor"],
             "lat": data.get("lat"),
             "lng": data.get("lng"),
